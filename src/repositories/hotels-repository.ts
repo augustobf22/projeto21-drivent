@@ -2,7 +2,6 @@ import { prisma } from '@/config';
 
 async function findHotels(){
     const hotels = await prisma.hotel.findMany();
-    // convert date 
     return hotels;
 };
 
@@ -14,6 +13,7 @@ async function checkHotel(userId: number){
                 userId: userId
             },
             TicketType: {
+                isRemote: false,
                 includesHotel: true
             }
         }
@@ -22,10 +22,11 @@ async function checkHotel(userId: number){
 };
 
 async function findHotelById(hotelId: number){
-    const hotels = await prisma.hotel.findUnique({
+    const hotel = await prisma.hotel.findUnique({
         where: {id: hotelId},
         include: {Rooms: true}
     })
+    return hotel;
 };
 
 export const hotelsRepository = { findHotels, checkHotel, findHotelById }
