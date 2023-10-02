@@ -8,11 +8,11 @@ async function getHotels(userId: number){
     const ticket = await ticketsRepository.findTicketByEnrollmentId(enrollment.id);
     if (!ticket) throw notFoundError();
 
-    const hotels = await hotelsRepository.findHotels();
-    if(hotels.length === 0) throw notFoundError();
-
     const checkHotel = await hotelsRepository.checkHotel(userId);
     if(!checkHotel) throw paymentRequiredError();
+
+    const hotels = await hotelsRepository.findHotels();
+    if(hotels.length === 0) throw notFoundError();
 
     return hotels;
 };
@@ -24,11 +24,11 @@ async function getHotelById(userId: number, hotelId: number){
     const ticket = await ticketsRepository.findTicketByEnrollmentId(enrollment.id);
     if (!ticket) throw notFoundError();
 
-    const hotels = await hotelsRepository.findHotels();
-    if(hotels.length === 0) throw notFoundError();
-
     const checkHotel = await hotelsRepository.checkHotel(userId);
     if(!checkHotel) throw paymentRequiredError();
+
+    const hotels = await hotelsRepository.findHotels();
+    if(hotels.length === 0) throw notFoundError();
 
     const hotelById = await hotelsRepository.findHotelById(hotelId);
     return hotelById;
