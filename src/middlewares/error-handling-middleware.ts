@@ -58,15 +58,7 @@ export function handleApplicationErrors(
     return res.status(httpStatus.BAD_REQUEST).send(err.message);
   }
 
-  if (err.name === 'TicketNotFoundError') {
-    return res.status(httpStatus.NOT_FOUND).send(err.message);
-  }
-
-  if (err.name === 'TicketCreateBodyError') {
-    return res.status(httpStatus.BAD_REQUEST).send(err.message);
-  }
-
-  if (err.name === 'PaymentRequiredError') {
+  if (err.name === 'CannotListHotelsError') {
     return res.status(httpStatus.PAYMENT_REQUIRED).send(err.message);
   }
 
