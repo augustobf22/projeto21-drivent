@@ -35,17 +35,19 @@ async function postBooking(userId: number, roomId: number) {
   return await bookingsRepository.createBooking(userId, roomId);
 }
 
-async function putBooking(userId: number, roomId: number) {
+async function putBooking(userId: number, roomId: number, bookingId: number) {
+  await validateUserBooking(userId);
+
   const booking = await bookingsRepository.findBooking(userId);
   if (!booking || booking.id === undefined) throw forbiddenError();
 
   const room = await bookingsRepository.checkRoom(roomId);
-  if(!room) throw notFoundError();
+  if(!room) throw forbiddenError();
 
   const bookingsCount = await bookingsRepository.checkAvailability(roomId);
   if(bookingsCount >= room.capacity) throw forbiddenError();
 
-  return await bookingsRepository.updateBooking(userId, roomId);
+  return await bookingsRepository.updateBooking(roomId, bookingId);
 }
 
 export const bookingsService = {

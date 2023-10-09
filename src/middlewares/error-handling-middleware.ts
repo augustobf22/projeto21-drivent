@@ -63,7 +63,7 @@ export function handleApplicationErrors(
   }
 
   if (err.name === 'Forbidden') {
-    return res.status(httpStatus.FORBIDDEN);
+    return res.status(httpStatus.FORBIDDEN).send(err.message);
   }
 
   if (err.hasOwnProperty('status') && err.name === 'RequestError') {
