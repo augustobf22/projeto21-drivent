@@ -12,3 +12,4 @@ export * from './invalid-cep-error';
 export * from './ticket-not-found-error';
 export * from './ticket-create-body-error';
 export * from './payment-required-error';
+export * from './forbidden-error';
