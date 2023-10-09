@@ -1,6 +1,6 @@
 import { TicketStatus } from '@prisma/client';
 import { invalidDataError, notFoundError, forbiddenError } from '@/errors';
-import { bookingsRepository, enrollmentRepository, ticketsRepository} from '@/repositories';
+import { bookingsRepository, enrollmentRepository, ticketsRepository } from '@/repositories';
 
 async function validateUserBooking(userId: number) {
   const enrollment = await enrollmentRepository.findWithAddressByUserId(userId);
@@ -27,10 +27,10 @@ async function postBooking(userId: number, roomId: number) {
   await validateUserBooking(userId);
 
   const room = await bookingsRepository.checkRoom(roomId);
-  if(!room) throw notFoundError();
+  if (!room) throw notFoundError();
 
   const bookingsCount = await bookingsRepository.checkAvailability(roomId);
-  if(bookingsCount >= room.capacity) throw forbiddenError();
+  if (bookingsCount >= room.capacity) throw forbiddenError();
 
   return await bookingsRepository.createBooking(userId, roomId);
 }
@@ -42,10 +42,10 @@ async function putBooking(userId: number, roomId: number, bookingId: number) {
   if (!booking || booking.id === undefined) throw forbiddenError();
 
   const room = await bookingsRepository.checkRoom(roomId);
-  if(!room) throw forbiddenError();
+  if (!room) throw forbiddenError();
 
   const bookingsCount = await bookingsRepository.checkAvailability(roomId);
-  if(bookingsCount >= room.capacity) throw forbiddenError();
+  if (bookingsCount >= room.capacity) throw forbiddenError();
 
   return await bookingsRepository.updateBooking(roomId, bookingId);
 }
@@ -53,5 +53,5 @@ async function putBooking(userId: number, roomId: number, bookingId: number) {
 export const bookingsService = {
   getBooking,
   postBooking,
-  putBooking
+  putBooking,
 };

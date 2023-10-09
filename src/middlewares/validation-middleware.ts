@@ -22,7 +22,7 @@ export function validateBooking<T>(schema: ObjectSchema<T>): ValidationMiddlewar
       throw notFoundError();
     }
   };
-};
+}
 
 function validate(schema: ObjectSchema, type: 'body' | 'params') {
   return (req: Request, res: Response, next: NextFunction) => {

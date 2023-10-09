@@ -11,7 +11,7 @@ import {
   ticketsRouter,
   paymentsRouter,
   hotelsRouter,
-  bookingsRouter
+  bookingsRouter,
 } from '@/routers';
 import { loadEnv, connectDb, disconnectDB } from '@/config';
 
